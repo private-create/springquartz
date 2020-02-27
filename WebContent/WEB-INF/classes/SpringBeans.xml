@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<bean name="dogDo;a" class="com.baidu.service.impl.DogDo">
+		<constructor-arg index="0">
+			<value>检察官</value>
+		</constructor-arg>
+		<property name="test">
+			<ref bean="msg"/>
+		</property>
+	</bean>
+	
+	<bean id="bridDo" class="com.baidu.service.impl.BridDo"  >
+		<property name="msg">
+			<value>检察官</value>
+		</property>
+	</bean>
+	
+	<bean id="msg" class="com.baidu.entity.Msg" init-method="init">
+	</bean>
+	
+	<bean id="log" class="com.baidu.service.impl.Log"></bean>
+	
+	<bean id="logProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces">
+			<value>com.baidu.service.CommonDo</value>
+		</property>
+		
+		<property name="target">
+			<ref bean="bridDo"/>
+		</property>
+		
+		<property name="interceptorNames">
+			<list>
+				<value>log</value>
+			</list>
+		</property>
+	</bean>
+</beans>

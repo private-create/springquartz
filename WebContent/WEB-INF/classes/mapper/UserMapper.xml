@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 
+3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baidu.service.UserDao">
+	<resultMap type="com.baidu.entity.User" id="user">
+		<result property="name" column="user_name"/>
+		<result property="userSeq" column="user_seq"/>
+	</resultMap>
+	
+	<select id="seachAll" resultMap="user">
+		select * from user
+	</select>
+	
+	<select id="seachBySeq" resultMap="user" parameterType="java.lang.String">
+		select * from user where user_seq=#{userSeq}
+	</select>
+	
+	<update id="updateBySeq" parameterType="java.lang.String"> 
+		update user set remark='basdnsdn' where user_seq=#{userSeq}
+	</update>
+</mapper>
